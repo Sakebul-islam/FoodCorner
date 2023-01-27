@@ -8,13 +8,12 @@ import classes from './HeaderCardButton.module.css';
 const HeaderCardButton = props => {
   const [btnIsHihlighted, setBtnIsHihlighted] = useState(false);
   const cartCtx = useContext(CartContext);
-  
+
   const { items } = cartCtx;
 
   const numberOfCartItem = items.reduce((currentNumber, item) => {
     return currentNumber + item.amount;
   }, 0);
-
 
   const btnClasses = `${classes.button} ${btnIsHihlighted ? classes.bump : ''}`;
 
@@ -23,13 +22,13 @@ const HeaderCardButton = props => {
       return;
     }
     setBtnIsHihlighted(true);
-    const timer = setTimeout(()=>{
-    setBtnIsHihlighted(false);
-    },300)
+    const timer = setTimeout(() => {
+      setBtnIsHihlighted(false);
+    }, 300);
 
-    return ()=>{
-      clearTimeout(timer)
-    }
+    return () => {
+      clearTimeout(timer);
+    };
   }, [items]);
   return (
     <button className={btnClasses} onClick={props.onClick}>
