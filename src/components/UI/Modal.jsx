@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Fragment } from 'react';
@@ -15,9 +16,18 @@ const ModalOverlay = props => {
 };
 const portalElements = document.querySelector('#overlays');
 const Modal = props => {
+  useEffect(() => {
+    document.body.style.overflowY = 'hidden';
+    return () => {
+      document.body.style.overflowY = 'auto';
+    };
+  }, []);
   return (
     <Fragment>
-      {ReactDOM.createPortal(<Backdrop onClose={props.onClose}/>, portalElements)}
+      {ReactDOM.createPortal(
+        <Backdrop onClose={props.onClose} />,
+        portalElements
+      )}
       {ReactDOM.createPortal(
         <ModalOverlay>{props.children}</ModalOverlay>,
         portalElements
